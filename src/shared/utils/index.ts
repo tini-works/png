@@ -1,70 +1,87 @@
-// Format currency
-export const formatCurrency = (
-  amount: number,
-  currency: string = 'VND'
-): string => {
-  return new Intl.NumberFormat('vi-VN', {
+/**
+ * Format currency
+ * @param amount - Amount to format
+ * @param currency - Currency code (e.g., 'VND', 'USD')
+ * @returns Formatted currency string
+ */
+export const formatCurrency = (amount: number, currency: string): string => {
+  const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
-    currency,
-  }).format(amount);
+    currency: currency,
+    minimumFractionDigits: currency === 'VND' ? 0 : 2,
+    maximumFractionDigits: currency === 'VND' ? 0 : 2,
+  });
+  return formatter.format(amount);
 };
 
-// Format date
+/**
+ * Format date
+ * @param dateString - Date string to format
+ * @returns Formatted date string (DD/MM/YYYY)
+ */
 export const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString('vi-VN');
-};
-
-// Format date and time
-export const formatDateTime = (dateString: string): string => {
-  return new Date(dateString).toLocaleString('vi-VN');
-};
-
-// Format number
-export const formatNumber = (number: number): string => {
-  return new Intl.NumberFormat('vi-VN').format(number);
-};
-
-// Calculate due date
-export const calculateDueDate = (
-  date: Date,
-  paymentTerms: number
-): Date => {
-  const dueDate = new Date(date);
-  dueDate.setDate(dueDate.getDate() + paymentTerms);
-  return dueDate;
-};
-
-// Check if date is overdue
-export const isOverdue = (dateString: string): boolean => {
   const date = new Date(dateString);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return date < today;
+  return date.toLocaleDateString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
 };
 
-// Generate random ID
-export const generateId = (length: number = 8): string => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
+/**
+ * Format date and time
+ * @param dateString - Date string to format
+ * @returns Formatted date and time string (DD/MM/YYYY HH:MM)
+ */
+export const formatDateTime = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 };
 
-// Truncate text
+/**
+ * Format number
+ * @param value - Number to format
+ * @returns Formatted number string
+ */
+export const formatNumber = (value: number): string => {
+  return new Intl.NumberFormat('vi-VN').format(value);
+};
+
+/**
+ * Calculate exchange rate
+ * @param amount - Amount in foreign currency
+ * @param amountInVND - Amount in VND
+ * @returns Exchange rate
+ */
+export const calculateExchangeRate = (amount: number, amountInVND: number): number => {
+  if (amount === 0) return 0;
+  return amountInVND / amount;
+};
+
+/**
+ * Convert amount to VND
+ * @param amount - Amount in foreign currency
+ * @param exchangeRate - Exchange rate
+ * @returns Amount in VND
+ */
+export const convertToVND = (amount: number, exchangeRate: number): number => {
+  return amount * exchangeRate;
+};
+
+/**
+ * Truncate text
+ * @param text - Text to truncate
+ * @param maxLength - Maximum length
+ * @returns Truncated text
+ */
 export const truncateText = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength) + '...';
-};
-
-// Capitalize first letter
-export const capitalizeFirstLetter = (text: string): string => {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-};
-
-// Format status
-export const formatStatus = (status: string): string => {
-  return status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ');
 };
 

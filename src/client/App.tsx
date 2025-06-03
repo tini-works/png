@@ -17,6 +17,9 @@ import DashboardPage from './pages/DashboardPage';
 import PaymentRequestsPage from './pages/PaymentRequestsPage';
 import PaymentRequestDetailPage from './pages/PaymentRequestDetailPage';
 import CreatePaymentRequestPage from './pages/CreatePaymentRequestPage';
+import ExpenseRequestsPage from './pages/ExpenseRequestsPage';
+import ExpenseRequestDetailPage from './pages/ExpenseRequestDetailPage';
+import CreateExpenseRequestPage from './pages/CreateExpenseRequestPage';
 import UsersPage from './pages/UsersPage';
 import UserProfilePage from './pages/UserProfilePage';
 import CreateUserPage from './pages/CreateUserPage';
@@ -49,6 +52,15 @@ const App: React.FC = () => {
               path="/payment-requests/:id"
               element={<PaymentRequestDetailPage />}
             />
+            <Route path="/expense-requests" element={<ExpenseRequestsPage />} />
+            <Route
+              path="/expense-requests/create"
+              element={<CreateExpenseRequestPage />}
+            />
+            <Route
+              path="/expense-requests/:id"
+              element={<ExpenseRequestDetailPage />}
+            />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/users/create" element={<CreateUserPage />} />
             <Route path="/users/:id" element={<UserProfilePage />} />
@@ -67,4 +79,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-

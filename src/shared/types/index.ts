@@ -140,6 +140,51 @@ export interface PaymentRequest {
   updatedAt: string;
 }
 
+// Expense request types
+export enum ExpenseRequestStatus {
+  DRAFT = 'draft',
+  SUBMITTED = 'submitted',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+  PAID = 'paid',
+  CANCELLED = 'cancelled',
+}
+
+export enum ExpenseCategory {
+  TRAVEL = 'travel',
+  MEALS = 'meals',
+  ACCOMMODATION = 'accommodation',
+  OFFICE_SUPPLIES = 'office_supplies',
+  TRANSPORTATION = 'transportation',
+  ENTERTAINMENT = 'entertainment',
+  TRAINING = 'training',
+  SOFTWARE = 'software',
+  HARDWARE = 'hardware',
+  MARKETING = 'marketing',
+  OTHER = 'other',
+}
+
+export interface ExpenseRequest {
+  _id: string;
+  requestNumber: string;
+  title: string;
+  companyId: string;
+  userId: string;
+  expenseDate: string;
+  amount: number;
+  currency: string;
+  exchangeRate?: number;
+  amountInVND: number;
+  vendorName?: string;
+  category: ExpenseCategory;
+  description?: string;
+  status: ExpenseRequestStatus;
+  attachments?: string[];
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Notification types
 export enum NotificationType {
   PAYMENT_REQUEST_CREATED = 'payment_request_created',
@@ -148,21 +193,5 @@ export enum NotificationType {
   PAYMENT_OVERDUE = 'payment_overdue',
   PAYMENT_REMINDER = 'payment_reminder',
   SYSTEM = 'system',
-}
-
-export interface Notification {
-  _id: string;
-  userId: string;
-  companyId: string;
-  type: NotificationType;
-  title: string;
-  message: string;
-  isRead: boolean;
-  relatedTo?: {
-    model: string;
-    documentId: string;
-  };
-  createdAt: string;
-  updatedAt: string;
 }
 
