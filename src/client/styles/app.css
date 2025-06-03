@@ -1,0 +1,147 @@
+/* Main layout styles */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-container {
+  display: flex;
+  flex: 1;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-collapsed {
+  margin-left: 60px;
+}
+
+/* Navbar styles */
+.bp4-navbar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+}
+
+.user-name {
+  margin-left: 8px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 10px;
+  padding: 2px 6px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: #30404d;
+  transition: width 0.3s ease;
+  overflow-x: hidden;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar-menu {
+  background-color: transparent;
+  padding: 10px 0;
+}
+
+.sidebar-menu .bp4-menu-item {
+  color: #f5f8fa;
+  border-radius: 0;
+  padding: 10px 15px;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-menu .bp4-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu .bp4-menu-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-menu .bp4-icon {
+  color: #f5f8fa;
+  margin-right: 10px;
+}
+
+.sidebar.closed .bp4-menu-item {
+  padding: 10px;
+  text-align: center;
+}
+
+.sidebar.closed .bp4-icon {
+  margin-right: 0;
+}
+
+/* Common page styles */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  margin: 0;
+}
+
+/* Card styles */
+.bp4-card {
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .bp4-form-group {
+  flex: 1;
+}
+
+/* Loading styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+/* Error styles */
+.error-message {
+  margin: 20px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  
+  .sidebar.open {
+    width: 250px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+

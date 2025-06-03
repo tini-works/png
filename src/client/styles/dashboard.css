@@ -1,0 +1,182 @@
+/* Dashboard page styles */
+.dashboard-page {
+  padding: 10px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
+
+/* Dashboard stats styles */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e1e8ed;
+  margin-right: 15px;
+}
+
+.stat-icon.success {
+  background-color: #d5f2e3;
+}
+
+.stat-icon.warning {
+  background-color: #ffe2bd;
+}
+
+.stat-icon .bp4-icon-standard {
+  font-size: 24px;
+  color: #5c7080;
+}
+
+.stat-icon.success .bp4-icon-standard {
+  color: #0f9960;
+}
+
+.stat-icon.warning .bp4-icon-standard {
+  color: #d9822b;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #5c7080;
+}
+
+/* Dashboard content styles */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 992px) {
+  .dashboard-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.chart-card,
+.recent-card {
+  height: 100%;
+}
+
+.chart-card h4,
+.recent-card h4 {
+  margin-bottom: 15px;
+}
+
+/* Payment status chart styles */
+.payment-status-chart {
+  margin-top: 20px;
+}
+
+.chart-bars {
+  margin-bottom: 20px;
+}
+
+.chart-bar-container {
+  margin-bottom: 15px;
+}
+
+.chart-bar-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.chart-bar-wrapper {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+
+.chart-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.chart-bar-value {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.legend-label {
+  font-size: 14px;
+}
+
+/* Recent payments list styles */
+.recent-payments-list {
+  margin-top: 20px;
+}
+
+.recent-payments-list table {
+  width: 100%;
+}
+
+.view-all-button {
+  margin-top: 15px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: #5c7080;
+  font-style: italic;
+}
+

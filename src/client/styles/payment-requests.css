@@ -1,0 +1,248 @@
+/* Payment requests page styles */
+.payment-requests-page {
+  padding: 10px;
+}
+
+.payment-requests-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.payment-requests-filters {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f5f8fa;
+  border-radius: 3px;
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.filter-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Payment requests table styles */
+.payment-requests-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.payment-requests-table table {
+  width: 100%;
+}
+
+.payment-requests-table th,
+.payment-requests-table td {
+  white-space: nowrap;
+}
+
+.payment-requests-table .amount-column {
+  text-align: right;
+}
+
+.payment-requests-table .status-column {
+  text-align: center;
+}
+
+.payment-requests-table .actions-column {
+  text-align: right;
+}
+
+.payment-requests-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #5c7080;
+}
+
+/* Payment request detail page styles */
+.payment-request-detail {
+  padding: 10px;
+}
+
+.payment-request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.payment-request-title {
+  margin: 0;
+}
+
+.payment-request-status {
+  margin-bottom: 10px;
+}
+
+.payment-request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.payment-request-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.info-card {
+  height: 100%;
+}
+
+.info-card h4 {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.info-card h4 .bp4-icon {
+  margin-right: 8px;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.info-label {
+  font-weight: 600;
+  width: 120px;
+  color: #5c7080;
+}
+
+.info-value {
+  flex: 1;
+}
+
+.payment-request-items {
+  margin-bottom: 20px;
+}
+
+.items-table {
+  width: 100%;
+}
+
+.items-table th:last-child,
+.items-table td:last-child {
+  text-align: right;
+}
+
+.payment-request-summary {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  width: 300px;
+}
+
+.summary-list {
+  list-style: none;
+  padding: 0;
+}
+
+.summary-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.summary-list li.total {
+  font-weight: 600;
+  font-size: 16px;
+  border-top: 1px solid #e1e8ed;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.payment-request-notes {
+  margin-bottom: 20px;
+}
+
+.payment-request-attachments {
+  margin-bottom: 20px;
+}
+
+.attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f5f8fa;
+  border-radius: 3px;
+}
+
+.attachment-item .bp4-icon {
+  margin-right: 8px;
+}
+
+/* Create payment request page styles */
+.create-payment-request {
+  padding: 10px;
+}
+
+.create-payment-request-header {
+  margin-bottom: 20px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-section h3 {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.items-section {
+  margin-bottom: 20px;
+}
+
+.items-table-container {
+  margin-bottom: 10px;
+}
+
+.add-item-button {
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 30px;
+}
+

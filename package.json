@@ -1,0 +1,38 @@
+{
+  "name": "payment-request-system",
+  "version": "1.0.0",
+  "description": "Payment Request System for SMEs in Vietnam",
+  "main": "src/server/index.ts",
+  "scripts": {
+    "dev": "bun run --watch src/server/index.ts",
+    "build": "bun build src/client/index.tsx --outdir ./dist",
+    "start": "bun run src/server/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^5.3.0",
+    "@blueprintjs/datetime": "^5.2.0",
+    "@blueprintjs/icons": "^5.1.6",
+    "@blueprintjs/popover2": "^2.0.10",
+    "@blueprintjs/select": "^5.0.10",
+    "@blueprintjs/table": "^5.0.10",
+    "@elysiajs/cors": "^0.7.1",
+    "@elysiajs/jwt": "^0.7.0",
+    "@elysiajs/swagger": "^0.7.3",
+    "bcrypt": "^5.1.1",
+    "elysia": "^0.7.15",
+    "mongoose": "^7.5.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "bun-types": "^1.0.3",
+    "typescript": "^5.2.2"
+  },
+  "module": "src/server/index.ts"
+}
+

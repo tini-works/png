@@ -1,0 +1,72 @@
+/* Auth layout styles */
+.auth-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #106ba3;
+  background-image: linear-gradient(135deg, #106ba3 0%, #0a4c73 100%);
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.auth-logo h2 {
+  margin-bottom: 5px;
+}
+
+.auth-card {
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Login page styles */
+.login-page h2,
+.register-page h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-page form,
+.register-page form {
+  margin-bottom: 20px;
+}
+
+.login-page .bp4-callout,
+.register-page .bp4-callout {
+  margin-bottom: 20px;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Register page styles */
+.register-page h3 {
+  margin: 20px 0 10px;
+  font-size: 16px;
+  color: #5c7080;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 10px;
+  }
+  
+  .auth-card {
+    padding: 20px;
+  }
+}
+
