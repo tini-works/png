@@ -22,12 +22,13 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Import other styles */
-@import './app.css';
+/* Import all styles */
+@import './variables.css';
+@import './layout.css';
 @import './auth.css';
 @import './dashboard.css';
 @import './payment-requests.css';
+@import './expense-requests.css';
 @import './users.css';
 @import './settings.css';
 @import './notifications.css';
-

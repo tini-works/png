@@ -37,6 +37,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           active={isActive('/payment-requests')}
           onClick={() => navigateTo('/payment-requests')}
         />
+        <MenuItem
+          icon="credit-card"
+          text={isOpen ? 'Expense Requests' : ''}
+          active={isActive('/expense-requests')}
+          onClick={() => navigateTo('/expense-requests')}
+        />
         
         {/* Admin and Manager only */}
         {user?.role && ['admin', 'manager'].includes(user.role) && (
@@ -64,4 +70,3 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 };
 
 export default Sidebar;
-
