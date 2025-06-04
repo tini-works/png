@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   FormGroup,
   InputGroup,
@@ -13,16 +13,30 @@ import {
 } from '@blueprintjs/core';
 import { useAuth } from '../context/AuthContext';
 
+// Define the location state type
+interface LocationState {
+  from?: string;
+}
+
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Get the redirect path from location state
+  const state = location.state as LocationState;
+  const from = state?.from || '/dashboard';
 
-  // Handle form submit
+  // Handle form submit with redirect
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
+    
+    // The redirect will happen automatically in the login function
+    // if authentication is successful
   };
 
   // Toggle password visibility

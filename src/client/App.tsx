@@ -10,6 +10,9 @@ import { NotificationProvider } from './context/NotificationContext';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
 
+// Components
+import ProtectedRoute from './components/ProtectedRoute';
+
 // Pages
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -41,33 +44,35 @@ const App: React.FC = () => {
             <Route path="/register" element={<RegisterPage />} />
           </Route>
 
-          {/* Main routes */}
-          <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/payment-requests" element={<PaymentRequestsPage />} />
-            <Route
-              path="/payment-requests/create"
-              element={<CreatePaymentRequestPage />}
-            />
-            <Route
-              path="/payment-requests/:id"
-              element={<PaymentRequestDetailPage />}
-            />
-            <Route path="/expense-requests" element={<ExpenseRequestsPage />} />
-            <Route
-              path="/expense-requests/create"
-              element={<CreateExpenseRequestPage />}
-            />
-            <Route
-              path="/expense-requests/:id"
-              element={<ExpenseRequestDetailPage />}
-            />
-            <Route path="/users" element={<UsersPage />} />
-            <Route path="/users/create" element={<CreateUserPage />} />
-            <Route path="/users/:id" element={<UserProfilePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            {/* New route for role management */}
-            <Route path="/roles" element={<RoleManagementPage />} />
+          {/* Protected routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<MainLayout />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/payment-requests" element={<PaymentRequestsPage />} />
+              <Route
+                path="/payment-requests/create"
+                element={<CreatePaymentRequestPage />}
+              />
+              <Route
+                path="/payment-requests/:id"
+                element={<PaymentRequestDetailPage />}
+              />
+              <Route path="/expense-requests" element={<ExpenseRequestsPage />} />
+              <Route
+                path="/expense-requests/create"
+                element={<CreateExpenseRequestPage />}
+              />
+              <Route
+                path="/expense-requests/:id"
+                element={<ExpenseRequestDetailPage />}
+              />
+              <Route path="/users" element={<UsersPage />} />
+              <Route path="/users/create" element={<CreateUserPage />} />
+              <Route path="/users/:id" element={<UserProfilePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              {/* Role management route */}
+              <Route path="/roles" element={<RoleManagementPage />} />
+            </Route>
           </Route>
 
           {/* Redirect root to dashboard */}
