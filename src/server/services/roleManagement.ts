@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Role, IRole } from '../models/role';
 import { User } from '../models/user';
-import { DefaultRolePermissions, getAllPermissions } from '../models/permission';
+import { DefaultRolePermissions, getAllPermissions, SystemPermissions } from '../models/permission';
 import { AppError } from '../middleware/errorHandler';
 
 export class RoleManagementService {
@@ -56,6 +56,214 @@ export class RoleManagementService {
       }
     } catch (error) {
       console.error('Error initializing system roles:', error);
+      throw error;
+    }
+  }
+
+  // Initialize custom business roles
+  static async initializeCustomRoles(): Promise<void> {
+    try {
+      const session = await mongoose.startSession();
+      session.startTransaction();
+
+      try {
+        // Define custom roles
+        const customRoles = [
+          // Management roles
+          {
+            roleName: 'CEO',
+            description: 'Chief Executive Officer with access to high-level dashboards and financial insights',
+            permissions: [
+              // Dashboard and reporting
+              SystemPermissions.REPORT_READ,
+              SystemPermissions.REPORT_READ_ALL,
+              SystemPermissions.REPORT_CREATE,
+              
+              // Budget permissions
+              SystemPermissions.BUDGET_READ,
+              SystemPermissions.BUDGET_READ_ALL,
+              SystemPermissions.BUDGET_APPROVE,
+              
+              // Payment and expense permissions
+              SystemPermissions.PAYMENT_REQUEST_READ,
+              SystemPermissions.PAYMENT_REQUEST_READ_ALL,
+              SystemPermissions.PAYMENT_REQUEST_APPROVE,
+              SystemPermissions.EXPENSE_REQUEST_READ,
+              SystemPermissions.EXPENSE_REQUEST_READ_ALL,
+              SystemPermissions.EXPENSE_REQUEST_APPROVE,
+              
+              // User permissions (limited)
+              SystemPermissions.USER_READ,
+              SystemPermissions.USER_READ_ALL,
+              
+              // Company permissions
+              SystemPermissions.COMPANY_READ,
+            ],
+            isSystemRole: false,
+          },
+          {
+            roleName: 'DIRECTOR',
+            description: 'Director with access to financial status analysis and key trends',
+            permissions: [
+              // Dashboard and reporting
+              SystemPermissions.REPORT_READ,
+              SystemPermissions.REPORT_READ_ALL,
+              SystemPermissions.REPORT_CREATE,
+              
+              // Budget permissions
+              SystemPermissions.BUDGET_READ,
+              SystemPermissions.BUDGET_READ_ALL,
+              SystemPermissions.BUDGET_APPROVE,
+              
+              // Payment and expense permissions
+              SystemPermissions.PAYMENT_REQUEST_READ,
+              SystemPermissions.PAYMENT_REQUEST_READ_ALL,
+              SystemPermissions.PAYMENT_REQUEST_APPROVE,
+              SystemPermissions.EXPENSE_REQUEST_READ,
+              SystemPermissions.EXPENSE_REQUEST_READ_ALL,
+              SystemPermissions.EXPENSE_REQUEST_APPROVE,
+              
+              // User permissions (limited)
+              SystemPermissions.USER_READ,
+              SystemPermissions.USER_READ_ALL,
+              
+              // Company permissions
+              SystemPermissions.COMPANY_READ,
+            ],
+            isSystemRole: false,
+          },
+          
+          // Department Head role
+          {
+            roleName: 'DEPARTMENT_HEAD',
+            description: 'Department Head with visibility into departmental budgets and approval capabilities',
+            permissions: [
+              // Dashboard and reporting (limited)
+              SystemPermissions.REPORT_READ,
+              
+              // Budget permissions (departmental)
+              SystemPermissions.BUDGET_READ,
+              SystemPermissions.BUDGET_CREATE,
+              SystemPermissions.BUDGET_UPDATE,
+              
+              // Payment and expense permissions
+              SystemPermissions.PAYMENT_REQUEST_READ,
+              SystemPermissions.PAYMENT_REQUEST_READ_ALL,
+              SystemPermissions.PAYMENT_REQUEST_CREATE,
+              SystemPermissions.PAYMENT_REQUEST_UPDATE,
+              SystemPermissions.PAYMENT_REQUEST_APPROVE,
+              SystemPermissions.EXPENSE_REQUEST_READ,
+              SystemPermissions.EXPENSE_REQUEST_READ_ALL,
+              SystemPermissions.EXPENSE_REQUEST_CREATE,
+              SystemPermissions.EXPENSE_REQUEST_UPDATE,
+              SystemPermissions.EXPENSE_REQUEST_APPROVE,
+              
+              // User permissions (very limited)
+              SystemPermissions.USER_READ,
+              
+              // Company permissions (limited)
+              SystemPermissions.COMPANY_READ,
+            ],
+            isSystemRole: false,
+          },
+          
+          // Accounting roles
+          {
+            roleName: 'CHIEF_ACCOUNTANT',
+            description: 'Chief Accountant with full access to financial management features',
+            permissions: [
+              // Dashboard and reporting
+              SystemPermissions.REPORT_READ,
+              SystemPermissions.REPORT_READ_ALL,
+              SystemPermissions.REPORT_CREATE,
+              
+              // Budget permissions
+              SystemPermissions.BUDGET_READ,
+              SystemPermissions.BUDGET_READ_ALL,
+              SystemPermissions.BUDGET_CREATE,
+              SystemPermissions.BUDGET_UPDATE,
+              
+              // Payment permissions (full access)
+              SystemPermissions.PAYMENT_REQUEST_CREATE,
+              SystemPermissions.PAYMENT_REQUEST_READ,
+              SystemPermissions.PAYMENT_REQUEST_READ_ALL,
+              SystemPermissions.PAYMENT_REQUEST_UPDATE,
+              SystemPermissions.PAYMENT_REQUEST_DELETE,
+              SystemPermissions.PAYMENT_REQUEST_APPROVE,
+              
+              // Expense permissions (full access)
+              SystemPermissions.EXPENSE_REQUEST_READ,
+              SystemPermissions.EXPENSE_REQUEST_READ_ALL,
+              SystemPermissions.EXPENSE_REQUEST_UPDATE,
+              SystemPermissions.EXPENSE_REQUEST_APPROVE,
+              
+              // User permissions (limited)
+              SystemPermissions.USER_READ,
+              SystemPermissions.USER_READ_ALL,
+              
+              // Company permissions
+              SystemPermissions.COMPANY_READ,
+            ],
+            isSystemRole: false,
+          },
+          {
+            roleName: 'STAFF_ACCOUNTANT',
+            description: 'Staff Accountant with access to expense categorization and invoice processing',
+            permissions: [
+              // Dashboard and reporting (limited)
+              SystemPermissions.REPORT_READ,
+              
+              // Budget permissions (limited)
+              SystemPermissions.BUDGET_READ,
+              
+              // Payment permissions
+              SystemPermissions.PAYMENT_REQUEST_CREATE,
+              SystemPermissions.PAYMENT_REQUEST_READ,
+              SystemPermissions.PAYMENT_REQUEST_READ_ALL,
+              SystemPermissions.PAYMENT_REQUEST_UPDATE,
+              
+              // Expense permissions
+              SystemPermissions.EXPENSE_REQUEST_READ,
+              SystemPermissions.EXPENSE_REQUEST_READ_ALL,
+              SystemPermissions.EXPENSE_REQUEST_UPDATE,
+              
+              // User permissions (very limited)
+              SystemPermissions.USER_READ,
+              
+              // Company permissions (limited)
+              SystemPermissions.COMPANY_READ,
+            ],
+            isSystemRole: false,
+          },
+        ];
+
+        // Create or update each custom role
+        for (const roleData of customRoles) {
+          // Check if role already exists
+          const existingRole = await Role.findOne({ roleName: roleData.roleName }).session(session);
+          
+          if (existingRole) {
+            // Update existing role
+            existingRole.description = roleData.description;
+            existingRole.permissions = roleData.permissions;
+            await existingRole.save({ session });
+            console.log(`Updated existing role: ${roleData.roleName}`);
+          } else {
+            // Create new role
+            await Role.create([roleData], { session });
+            console.log(`Created new role: ${roleData.roleName}`);
+          }
+        }
+
+        await session.commitTransaction();
+      } catch (error) {
+        await session.abortTransaction();
+        throw error;
+      } finally {
+        session.endSession();
+      }
+    } catch (error) {
+      console.error('Error initializing custom roles:', error);
       throw error;
     }
   }
@@ -224,4 +432,3 @@ export class RoleManagementService {
     }
   }
 }
-

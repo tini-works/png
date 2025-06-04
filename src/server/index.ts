@@ -14,10 +14,15 @@ connectDatabase();
 // Initialize system roles
 const initializeSystemRoles = async () => {
   try {
+    // Initialize system roles first
     await RoleManagementService.initializeSystemRoles();
     console.log('✅ System roles initialized successfully');
+    
+    // Then initialize custom business roles
+    await RoleManagementService.initializeCustomRoles();
+    console.log('✅ Custom business roles initialized successfully');
   } catch (error) {
-    console.error('❌ Error initializing system roles:', error);
+    console.error('❌ Error initializing roles:', error);
   }
 };
 
