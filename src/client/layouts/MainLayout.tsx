@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import {
   Navbar,
   Button,
@@ -17,16 +17,10 @@ import NotificationList from '../components/NotificationList';
 import Sidebar from '../components/Sidebar';
 
 const MainLayout: React.FC = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, logout } = useAuth();
   const { unreadCount } = useNotifications();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const location = useLocation();
-
-  // Redirect to login if not authenticated
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
+  
   // Toggle sidebar
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -98,4 +92,3 @@ const MainLayout: React.FC = () => {
 };
 
 export default MainLayout;
-

@@ -59,6 +59,22 @@
   color: #5c7080;
 }
 
+/* Loading container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f8fa;
+}
+
+.loading-container p {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #5c7080;
+}
+
 /* Responsive styles */
 @media (max-width: 576px) {
   .auth-container {
@@ -69,4 +85,3 @@
     padding: 20px;
   }
 }
-

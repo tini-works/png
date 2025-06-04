@@ -1,24 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   FormGroup,
   InputGroup,
   Button,
   Intent,
   Callout,
+  Card,
+  Elevation,
+  H2,
+  Icon,
 } from '@blueprintjs/core';
 import { useAuth } from '../context/AuthContext';
+
+// Define the location state type
+interface LocationState {
+  from?: string;
+}
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Get the redirect path from location state
+  const state = location.state as LocationState;
+  const from = state?.from || '/dashboard';
 
-  // Handle form submit
+  // Handle form submit with redirect
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
+    
+    // The redirect will happen automatically in the login function
+    // if authentication is successful
   };
 
   // Toggle password visibility
@@ -36,57 +54,73 @@ const LoginPage: React.FC = () => {
   );
 
   return (
-    <div className="login-page">
-      <h2>Login</h2>
+    <div className="login-container">
+      <Card elevation={Elevation.TWO} className="login-card">
+        <div className="login-header">
+          <Icon icon="lock" iconSize={32} intent={Intent.PRIMARY} />
+          <H2>Payment Request System</H2>
+        </div>
 
-      {error && (
-        <Callout intent={Intent.DANGER} title="Login Failed">
-          {error}
-        </Callout>
-      )}
+        <div className="login-subtitle">
+          <p>Sign in to access your account</p>
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        <FormGroup label="Email" labelFor="email">
-          <InputGroup
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+        {error && (
+          <Callout intent={Intent.DANGER} title="Login Failed" className="login-error">
+            {error}
+          </Callout>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <FormGroup label="Email" labelFor="email">
+            <InputGroup
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              large
+              leftIcon="user"
+              required
+            />
+          </FormGroup>
+
+          <FormGroup label="Password" labelFor="password">
+            <InputGroup
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              rightElement={lockButton}
+              large
+              leftIcon="key"
+              required
+            />
+          </FormGroup>
+
+          <Button
+            type="submit"
+            intent={Intent.PRIMARY}
+            text="Sign In"
+            loading={isLoading}
+            fill
+            large
           />
-        </FormGroup>
+        </form>
 
-        <FormGroup label="Password" labelFor="password">
-          <InputGroup
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            rightElement={lockButton}
-            required
-          />
-        </FormGroup>
-
-        <Button
-          type="submit"
-          intent={Intent.PRIMARY}
-          text="Login"
-          loading={isLoading}
-          fill
-        />
-      </form>
-
-      <div className="auth-links">
-        <p>
-          Don't have an account?{' '}
-          <Link to="/register">Register</Link>
-        </p>
-      </div>
+        <div className="login-footer">
+          <p>
+            <a href="#" className="forgot-password">Forgot password?</a>
+          </p>
+          <p>
+            Don't have an account?{' '}
+            <Link to="/register">Register</Link>
+          </p>
+        </div>
+      </Card>
     </div>
   );
 };
 
 export default LoginPage;
-

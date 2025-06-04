@@ -30,6 +30,10 @@ interface RegisterData {
   companyId: string;
 }
 
+interface LocationState {
+  from?: string;
+}
+
 // Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -61,18 +65,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     checkAuth();
   }, []);
 
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (
-      !isLoading &&
-      !isAuthenticated &&
-      !location.pathname.startsWith('/login') &&
-      !location.pathname.startsWith('/register')
-    ) {
-      navigate('/login');
-    }
-  }, [isLoading, isAuthenticated, location.pathname, navigate]);
-
   // Login function
   const login = async (email: string, password: string) => {
     try {
@@ -103,8 +95,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Redirect to dashboard
-      navigate('/dashboard');
+      // Get redirect path from location state
+      const state = location.state as LocationState;
+      const from = state?.from || '/dashboard';
+
+      // Redirect to the requested page or dashboard
+      navigate(from, { replace: true });
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -191,4 +187,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
