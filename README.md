@@ -65,12 +65,35 @@ A comprehensive payment request management system designed specifically for Smal
    ZALOPAY_KEY2=your-zalopay-key2
    ```
 
-4. Start the development server:
+4. Initialize roles and dummy users (optional):
+   ```bash
+   bun run init:roles
+   ```
+
+   This will create the following dummy users:
+   - CEO: ceo@example.com (Password123!)
+   - Director: director@example.com (Password123!)
+   - Department Head: department_head@example.com (Password123!)
+   - Employees: employee1@example.com, employee2@example.com (Password123!)
+   - Accounting Team: chief_accountant@example.com, accountant@example.com (Password123!)
+
+5. Create a system administrator account:
+   ```bash
+   bun run create:admin
+   ```
+
+   This will create a system administrator account with the following credentials:
+   - Email: admin@system.com
+   - Password: Admin123!
+
+   **Important:** Please change the password after first login!
+
+6. Start the development server:
    ```bash
    bun dev
    ```
 
-5. Open your browser and navigate to `http://localhost:3000`
+7. Open your browser and navigate to `http://localhost:3000`
 
 ## Project Structure
 
@@ -94,7 +117,7 @@ src/
 │   ├── services/       # Business logic services
 │   └── index.ts        # Server entry point
 │
-└── shared/             # Shared code between client and server
+���── shared/             # Shared code between client and server
     ├── types/          # TypeScript interfaces and types
     └── utils/          # Shared utility functions
 ```
@@ -109,4 +132,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Elysia.js](https://elysiajs.com/) - TypeScript framework for Bun
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 - [React Router](https://reactrouter.com/) - Routing for React applications
-
