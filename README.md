@@ -12,6 +12,25 @@ A comprehensive payment request management system designed specifically for Smal
 - **Vietnamese Payment Integration**: Support for local payment methods (VNPay, MoMo, ZaloPay)
 - **Multilingual Support**: English and Vietnamese language options
 
+## Role-Based Access Control
+
+The system implements a comprehensive role-based access control system with the following roles:
+
+### System Roles
+- **Administrator**: Full system access with all permissions
+- **Manager**: Department management and approval capabilities
+- **Accountant**: Financial operations and reporting
+- **Employee**: Basic user with limited permissions
+
+### Business Roles
+- **Management**
+  - **CEO**: High-level dashboards, financial status analysis, and insights into key trends
+  - **Director**: Access to financial status analysis and key trends
+- **Department Head**: Visibility into departmental budgets, expense tracking, and approval capabilities
+- **Accounting Team**
+  - **Chief Accountant**: Full access to financial management features
+  - **Staff Accountant**: Access to expense categorization and invoice processing
+
 ## Tech Stack
 
 - **Frontend**: React, Blueprint.js, TypeScript
