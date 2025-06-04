@@ -96,12 +96,23 @@ The system implements a comprehensive role-based access control system with the 
    - Employees: employee1@example.com, employee2@example.com (Password123!)
    - Accounting Team: chief_accountant@example.com, accountant@example.com (Password123!)
 
-5. Start the development server:
+5. Create a system administrator account:
+   ```bash
+   bun run create:admin
+   ```
+
+   This will create a system administrator account with the following credentials:
+   - Email: admin@system.com
+   - Password: Admin123!
+
+   **Important:** Please change the password after first login!
+
+6. Start the development server:
    ```bash
    bun dev
    ```
 
-6. Open your browser and navigate to `http://localhost:3000`
+7. Open your browser and navigate to `http://localhost:3000`
 
 ## Project Structure
 

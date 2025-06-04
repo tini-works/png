@@ -9,7 +9,8 @@
     "start": "bun run src/server/index.ts",
     "test": "bun test",
     "init:roles": "bun run src/server/scripts/runInitialization.ts",
-    "migrate:user-roles": "bun run src/server/scripts/migrateUserRoles.ts"
+    "migrate:user-roles": "bun run src/server/scripts/migrateUserRoles.ts",
+    "create:admin": "bun run src/server/scripts/createSystemAdmin.ts"
   },
   "dependencies": {
     "@blueprintjs/core": "^5.3.0",

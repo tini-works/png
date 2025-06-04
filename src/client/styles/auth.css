@@ -52,6 +52,65 @@
   font-size: 14px;
 }
 
+/* New enhanced login styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #106ba3;
+  background-image: linear-gradient(135deg, #106ba3 0%, #0a4c73 100%);
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-header .bp4-icon {
+  margin-bottom: 15px;
+}
+
+.login-header h2 {
+  margin: 0;
+  color: #106ba3;
+}
+
+.login-subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #5c7080;
+}
+
+.login-error {
+  margin-bottom: 20px;
+}
+
+.login-footer {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-footer p {
+  margin-bottom: 10px;
+}
+
+.forgot-password {
+  color: #5c7080;
+}
+
 /* Register page styles */
 .register-page h3 {
   margin: 20px 0 10px;
@@ -66,6 +125,10 @@
   }
   
   .auth-card {
+    padding: 20px;
+  }
+  
+  .login-card {
     padding: 20px;
   }
 }
