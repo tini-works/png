@@ -48,7 +48,7 @@ export const isAuthenticated = new Elysia()
     return { user };
   });
 
-// Role-based access control middleware
+// Role-based access control middleware (legacy)
 export const hasRole = (roles: UserRole[]) =>
   new Elysia().derive(({ user, set }) => {
     if (!roles.includes(user.role as UserRole)) {
@@ -57,3 +57,32 @@ export const hasRole = (roles: UserRole[]) =>
     }
   });
 
+// Permission-based access control middleware (new)
+export const hasPermission = (requiredPermissions: string[]) =>
+  new Elysia().derive(async ({ user, set }) => {
+    // For backward compatibility, map legacy roles to permissions
+    if (!user.roleIds || user.roleIds.length === 0) {
+      // If using legacy role system, check if the role is sufficient
+      const isAdmin = user.role === UserRole.ADMIN;
+      
+      if (isAdmin) {
+        // Admins have all permissions in the legacy system
+        return;
+      }
+      
+      // For non-admins without roleIds, deny access
+      set.status = 403;
+      throw new AppError('Forbidden: Insufficient permissions', 403);
+    }
+    
+    // Check if user has any of the required permissions
+    for (const permission of requiredPermissions) {
+      if (await user.hasPermission(permission)) {
+        return; // User has at least one of the required permissions
+      }
+    }
+    
+    // User doesn't have any of the required permissions
+    set.status = 403;
+    throw new AppError('Forbidden: Insufficient permissions', 403);
+  });

@@ -15,7 +15,8 @@ export interface IUser extends Document {
   password: string;
   firstName: string;
   lastName: string;
-  role: UserRole;
+  role: UserRole; // Keep for backward compatibility
+  roleIds: mongoose.Types.ObjectId[]; // New field for role-based access control
   companyId: mongoose.Types.ObjectId;
   phone?: string;
   isActive: boolean;
@@ -23,6 +24,7 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  hasPermission(permission: string): Promise<boolean>; // New method to check permissions
 }
 
 // User schema
@@ -55,6 +57,11 @@ const userSchema = new Schema<IUser>(
       enum: Object.values(UserRole),
       default: UserRole.USER,
     },
+    roleIds: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Role',
+      default: [],
+    }],
     companyId: {
       type: Schema.Types.ObjectId,
       ref: 'Company',
@@ -100,6 +107,29 @@ userSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.password);
 };
 
+// Check if user has a specific permission
+userSchema.methods.hasPermission = async function (
+  permission: string
+): Promise<boolean> {
+  try {
+    // Populate roles if not already populated
+    const user = this.roleIds && this.roleIds[0] instanceof mongoose.Types.ObjectId
+      ? await this.populate('roleIds')
+      : this;
+    
+    // Check if any of the user's roles have the required permission
+    for (const role of user.roleIds) {
+      if (role.permissions && role.permissions.includes(permission)) {
+        return true;
+      }
+    }
+    
+    return false;
+  } catch (error) {
+    console.error('Error checking permissions:', error);
+    return false;
+  }
+};
+
 // Create and export User model
 export const User = mongoose.model<IUser>('User', userSchema);
-
