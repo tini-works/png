@@ -52,6 +52,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           />
         )}
         
+        {/* New menu item for role management */}
+        {hasPermission([UserRole.ADMIN]) && (
+          <MenuItem
+            icon="key"
+            text={isOpen ? 'Roles & Permissions' : ''}
+            active={isActive('/roles')}
+            className={isActive('/roles') ? 'active' : ''}
+            href="/roles"
+          />
+        )}
+        
         {hasPermission([UserRole.ADMIN, UserRole.MANAGER]) && (
           <MenuItem
             icon="cog"
@@ -67,4 +78,3 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 };
 
 export default Sidebar;
-

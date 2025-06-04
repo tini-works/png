@@ -24,6 +24,7 @@ import UsersPage from './pages/UsersPage';
 import UserProfilePage from './pages/UserProfilePage';
 import CreateUserPage from './pages/CreateUserPage';
 import SettingsPage from './pages/SettingsPage';
+import RoleManagementPage from './pages/RoleManagement/RoleManagementPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Disable focus outline for mouse users
@@ -65,6 +66,8 @@ const App: React.FC = () => {
             <Route path="/users/create" element={<CreateUserPage />} />
             <Route path="/users/:id" element={<UserProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            {/* New route for role management */}
+            <Route path="/roles" element={<RoleManagementPage />} />
           </Route>
 
           {/* Redirect root to dashboard */}

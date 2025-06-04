@@ -6,9 +6,23 @@ import { connectDatabase } from './config/database';
 import { routes } from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { PaymentService } from './services/payments';
+import { RoleManagementService } from './services/roleManagement';
 
 // Connect to database
 connectDatabase();
+
+// Initialize system roles
+const initializeSystemRoles = async () => {
+  try {
+    await RoleManagementService.initializeSystemRoles();
+    console.log('✅ System roles initialized successfully');
+  } catch (error) {
+    console.error('❌ Error initializing system roles:', error);
+  }
+};
+
+// Run initialization
+initializeSystemRoles();
 
 // Create app
 const app = new Elysia()
@@ -27,6 +41,7 @@ const app = new Elysia()
         { name: 'Companies', description: 'Company management endpoints' },
         { name: 'Payment Requests', description: 'Payment request endpoints' },
         { name: 'Notifications', description: 'Notification endpoints' },
+        { name: 'Roles', description: 'Role management endpoints' },
       ],
     },
   }))
@@ -62,4 +77,3 @@ checkOverduePayments();
 setInterval(checkOverduePayments, 24 * 60 * 60 * 1000);
 
 export type App = typeof app;
-
